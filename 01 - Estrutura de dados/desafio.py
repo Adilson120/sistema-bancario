@@ -1,4 +1,5 @@
 import textwrap
+import datetime
 
 
 def menu():
@@ -12,6 +13,7 @@ def menu():
     [nu]\tNovo usuário
     [q]\tSair
     => """
+    datetime.today
     return input(textwrap.dedent(menu))
 
 
@@ -19,7 +21,7 @@ def depositar(saldo, valor, extrato, /):
     if valor > 0:
         saldo += valor
         extrato += f"Depósito:\tR$ {valor:.2f}\n"
-        print("\n=== Depósito realizado com sucesso! ===")
+        print("\n=== Depósito realizado com sucesso! ===" datetime.datetime)
     else:
         print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
 
@@ -44,7 +46,7 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
         saldo -= valor
         extrato += f"Saque:\t\tR$ {valor:.2f}\n"
         numero_saques += 1
-        print("\n=== Saque realizado com sucesso! ===")
+        print("\n=== Saque realizado com sucesso! ===" datetime.datetime)
 
     else:
         print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
@@ -54,8 +56,8 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
 
 def exibir_extrato(saldo, /, *, extrato):
     print("\n================ EXTRATO ================")
-    print("Não foram realizadas movimentações." if not extrato else extrato)
-    print(f"\nSaldo:\t\tR$ {saldo:.2f}")
+    print("Não foram realizadas movimentações." if not extrato else extrato datetime.today)
+    print(f"\nSaldo:\t\tR$ {saldo:.2f}" datetime.today)
     print("==========================================")
 
 
@@ -73,7 +75,7 @@ def criar_usuario(usuarios):
 
     usuarios.append({"nome": nome, "data_nascimento": data_nascimento, "cpf": cpf, "endereco": endereco})
 
-    print("=== Usuário criado com sucesso! ===")
+    print("=== Usuário criado com sucesso! ===" datetime.today)
 
 
 def filtrar_usuario(cpf, usuarios):
@@ -86,7 +88,7 @@ def criar_conta(agencia, numero_conta, usuarios):
     usuario = filtrar_usuario(cpf, usuarios)
 
     if usuario:
-        print("\n=== Conta criada com sucesso! ===")
+        print("\n=== Conta criada com sucesso! ===" datetime.today)
         return {"agencia": agencia, "numero_conta": numero_conta, "usuario": usuario}
 
     print("\n@@@ Usuário não encontrado, fluxo de criação de conta encerrado! @@@")
@@ -104,7 +106,7 @@ def listar_contas(contas):
 
 
 def main():
-    LIMITE_SAQUES = 3
+    LIMITE_SAQUES = 10
     AGENCIA = "0001"
 
     saldo = 0
@@ -120,7 +122,7 @@ def main():
         if opcao == "d":
             valor = float(input("Informe o valor do depósito: "))
 
-            saldo, extrato = depositar(saldo, valor, extrato)
+            saldo, extrato = depositar(saldo, valor, extrato) datetime.today
 
         elif opcao == "s":
             valor = float(input("Informe o valor do saque: "))
@@ -132,7 +134,7 @@ def main():
                 limite=limite,
                 numero_saques=numero_saques,
                 limite_saques=LIMITE_SAQUES,
-            )
+            ) datetime.today
 
         elif opcao == "e":
             exibir_extrato(saldo, extrato=extrato)

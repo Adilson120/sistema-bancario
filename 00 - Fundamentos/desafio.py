@@ -1,10 +1,10 @@
 menu = """
-
+\n===========MENU===========
 [d] Depositar
 [s] Sacar
 [e] Extrato
 [q] Sair
-
+==========================
 => """
 
 saldo = 0
@@ -23,6 +23,11 @@ while True:
         if valor > 0:
             saldo += valor
             extrato += f"Depósito: R$ {valor:.2f}\n"
+            
+            print("\n================ EXTRATO ================")
+            print("Não foram realizadas movimentações." if not extrato else extrato)
+            print(f"\nSaldo: R$ {saldo:.2f}")
+            print("==========================================")
 
         else:
             print("Operação falhou! O valor informado é inválido.")
@@ -37,18 +42,22 @@ while True:
         excedeu_saques = numero_saques >= LIMITE_SAQUES
 
         if excedeu_saldo:
-            print("Operação falhou! Você não tem saldo suficiente.")
+            print("Operação falhou! Você não tem saldo suficiente. Faça um deposito para obter um saldo maior!")
 
         elif excedeu_limite:
-            print("Operação falhou! O valor do saque excede o limite.")
+            print("Operação falhou! O valor do saque excede o limite. Seu limite por saque é de no máximo R$ 500,00")
 
         elif excedeu_saques:
-            print("Operação falhou! Número máximo de saques excedido.")
+            print("Operação falhou! Número máximo de saques excedido. Lembre-se que nossa instituição permite apenas 3 saques diários")
 
-        elif valor > 0:
+        elif valor > 0: # Imaginei que a geração de um extrato estantaneo após a realização de um saque seria banaca e prático!
             saldo -= valor
             extrato += f"Saque: R$ {valor:.2f}\n"
             numero_saques += 1
+            print("\n================ EXTRATO ================")
+            print("Não foram realizadas movimentações." if not extrato else extrato)
+            print(f"\nSaldo: R$ {saldo:.2f}")
+            print("==========================================")
 
         else:
             print("Operação falhou! O valor informado é inválido.")
@@ -64,3 +73,4 @@ while True:
 
     else:
         print("Operação inválida, por favor selecione novamente a operação desejada.")
+
